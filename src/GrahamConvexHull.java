@@ -14,8 +14,10 @@ public class GrahamConvexHull {
     static Point p5 = new Point(-3, 3);
     static Point p6 = new Point(-4, 1);
     static Point p7 = new Point(1, 7);
+    static Point p8= new Point(1, 2);
+    static Point p9 = new Point(2, 4);
 
-    static LinkedList<Point> points = new LinkedList<Point>(Arrays.asList(p4, p3, p1, p0, p2, p7, p6, p5));
+    static LinkedList<Point> points = new LinkedList<Point>(Arrays.asList(p4, p3, p1, p0, p2, p7, p6, p5, p9, p8));
 
 
     public static int crossProdcut(Point a, Point b, Point c) { // 2 consecutive segments (a to b, b to c)
@@ -53,9 +55,9 @@ public class GrahamConvexHull {
             public int compare(Point a, Point b) { // sorting rule
                 int cp = crossProdcut(p0, a, b);
                 if(cp == 0) { // p0,a,b collinear
-                    if(distance(p0, b) >= distance(p0, a)) {
-                        deletePoints.add(b);
-                        System.out.println(b);
+                    if(distance(p0, b) >= distance(p0, a) && a!=p0 && b!=p0)  {
+                        deletePoints.add(a);
+                        System.out.println(a);
                     }
                     System.out.println("due punti collineari");
                     return (distance(p0, b) >= distance(p0, a)) ? -1 : 1;
