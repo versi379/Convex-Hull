@@ -45,21 +45,14 @@ public class GrahamConvexHull {
         return points.get(min_index); // p0
     }
 
+
     public static LinkedList<Point> polarSort(LinkedList<Point> unsortedPoints, Point p0) {
-
-        LinkedList<Point> deletePoints = new LinkedList<>();
-
-        //unsortedPoints.remove(p0);
+        unsortedPoints.remove(p0);
         LinkedList<Point> sortedPoints = new LinkedList<>(unsortedPoints);
         Collections.sort(sortedPoints, new Comparator<Point>() {
             public int compare(Point a, Point b) { // sorting rule
                 int cp = crossProdcut(p0, a, b);
                 if(cp == 0) { // p0,a,b collinear
-                    if(distance(p0, b) >= distance(p0, a) && a!=p0 && b!=p0)  {
-                        deletePoints.add(a);
-                        System.out.println(a);
-                    }
-                    System.out.println("due punti collineari");
                     return (distance(p0, b) >= distance(p0, a)) ? -1 : 1;
                 } else {
                     return (cp == 2) ? 1 : -1;
@@ -67,11 +60,16 @@ public class GrahamConvexHull {
             }
         });
 
-        for(int i = 0; i < deletePoints.size(); i++) {
-            sortedPoints.remove(deletePoints.get(i));
+         LinkedList<Point> removePoints = new LinkedList<>();
+        for(int i=0; i<=sortedPoints.size()-2; i++){
+            int d = crossProdcut(sortedPoints.get(i), sortedPoints.get(i+1) , p0);
+            if (d==0){
+                removePoints.add(sortedPoints.get(i));
+            }
         }
-
-        System.out.println(deletePoints);
+        for(int j=0; j<removePoints.size();j++){
+            sortedPoints.remove(removePoints.get(j));
+        }
 
         return sortedPoints;
 
@@ -83,10 +81,16 @@ public class GrahamConvexHull {
 
     public static void main(String[] args) {
         Point p0 = firstPoint(points);
-        LinkedList<Point> sortedPoints = polarSort(points, p0);
-        System.out.println(points);
-        System.out.println(p0);
-        System.out.println(sortedPoints);
+        System.out.println("I punti disordinati:");
+       System.out.println(points);
+       System.out.println("======================================");
+       System.out.println("Il punto p0 è:");
+       System.out.println(p0);
+       System.out.println("======================================");
+       LinkedList<Point> sortedPoints = polarSort(points, p0);
+       System.out.println("p1.....pm:");
+       System.out.println(sortedPoints);
+       System.out.println("======================================");
 
     }
     
