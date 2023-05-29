@@ -7,23 +7,7 @@ import java.util.Stack;
 
 public class GrahamConvexHull {
 
-    static Point p0 = new Point(1, 0);
-    static Point p1 = new Point(3, 4);
-    static Point p2 = new Point(2, 2);
-    static Point p3 = new Point(4, 6);
-    static Point p4 = new Point(0, 7);
-    static Point p5 = new Point(-4, 5);
-    static Point p6 = new Point(-4, 3);
-    static Point p7 = new Point(0, 5);
-    static Point p8= new Point(0, 3);
-    static Point p9 = new Point(-1, 3);
-    static Point p10 = new Point(2, 4);
-    static Point p11 = new Point(-1, 1);
-
-    static LinkedList<Point> points = new LinkedList<Point>(Arrays.asList(p4, p3, p1, p0, p2, p7, p6, p5, p9, p8, p10, p11));
-
-
-    public static int crossProdcut(Point a, Point b, Point c) { // 2 consecutive segments (a to b, b to c)
+    private static int crossProdcut(Point a, Point b, Point c) { // 2 consecutive segments (a to b, b to c)
         int det = (c.x - a.x)*(b.y - a.y) - (b.x - a.x)*(c.y - a.y);
         if(det == 0) { // a,b,c collinear
             return 0;
@@ -34,7 +18,7 @@ public class GrahamConvexHull {
         }
     }
 
-    public static Point firstPoint(LinkedList<Point> points) {
+    private static Point firstPoint(LinkedList<Point> points) {
         int min_index = 0;
         for(int i = 1; i < points.size(); i++) {
             if(points.get(i).y < points.get(min_index).y) {
@@ -49,7 +33,7 @@ public class GrahamConvexHull {
     }
 
 
-    public static LinkedList<Point> polarSort(LinkedList<Point> unsortedPoints, Point p0) {
+    private static LinkedList<Point> polarSort(LinkedList<Point> unsortedPoints, Point p0) {
         unsortedPoints.remove(p0);
         LinkedList<Point> sortedPoints = new LinkedList<>(unsortedPoints);
         Collections.sort(sortedPoints, new Comparator<Point>() {
@@ -78,13 +62,13 @@ public class GrahamConvexHull {
 
     }
 
-    public static int distance(Point a, Point b) {
+    private static int distance(Point a, Point b) {
         return (b.x - a.x)*(b.x - a.x) + (b.y - a.y)*(b.y - a.y); 
     }
-    public static Point top(LinkedList<Point> P){
+    private static Point top(LinkedList<Point> P){
         return P.getLast();
     }
-    public static Point nextToPeek(Stack<Point> S){
+    private static Point nextToPeek(Stack<Point> S){
         return S.get(S.size()-2);
     }
 
@@ -104,12 +88,12 @@ public class GrahamConvexHull {
         return S;
     }
 
-    public static void main(String[] args) {
+  /*   public static void main(String[] args) {
        System.out.println(points);
        System.out.println("===========================================================");
        Stack<Point> CH = grahamScan(points);
        System.out.println("GrahamScan eseguito");
        System.out.println(CH);
-    }
+    }*/
     
 }
