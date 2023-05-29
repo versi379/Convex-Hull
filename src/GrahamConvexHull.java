@@ -3,25 +3,28 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.Stack;
 
 public class GrahamConvexHull {
 
-    static Point p0 = new Point(0, 0);
-    static Point p1 = new Point(1, 1);
+    static Point p0 = new Point(1, 0);
+    static Point p1 = new Point(3, 4);
     static Point p2 = new Point(2, 2);
-    static Point p3 = new Point(-1, 4);
-    static Point p4 = new Point(-2, 2);
-    static Point p5 = new Point(-3, 3);
-    static Point p6 = new Point(-4, 1);
-    static Point p7 = new Point(1, 7);
-    static Point p8= new Point(1, 2);
-    static Point p9 = new Point(2, 4);
+    static Point p3 = new Point(4, 6);
+    static Point p4 = new Point(0, 7);
+    static Point p5 = new Point(-4, 5);
+    static Point p6 = new Point(-4, 3);
+    static Point p7 = new Point(0, 5);
+    static Point p8= new Point(0, 3);
+    static Point p9 = new Point(-1, 3);
+    static Point p10 = new Point(2, 4);
+    static Point p11 = new Point(-1, 1);
 
-    static LinkedList<Point> points = new LinkedList<Point>(Arrays.asList(p4, p3, p1, p0, p2, p7, p6, p5, p9, p8));
+    static LinkedList<Point> points = new LinkedList<Point>(Arrays.asList(p4, p3, p1, p0, p2, p7, p6, p5, p9, p8, p10, p11));
 
 
     public static int crossProdcut(Point a, Point b, Point c) { // 2 consecutive segments (a to b, b to c)
-        int det = (b.x - a.x)*(c.y - a.y) - (c.x - a.x)*(b.y - a.y);
+        int det = (c.x - a.x)*(b.y - a.y) - (b.x - a.x)*(c.y - a.y);
         if(det == 0) { // a,b,c collinear
             return 0;
         } else if(det > 0) { // clockwise turn (a-b to a-c)
@@ -55,7 +58,7 @@ public class GrahamConvexHull {
                 if(cp == 0) { // p0,a,b collinear
                     return (distance(p0, b) >= distance(p0, a)) ? -1 : 1;
                 } else {
-                    return (cp == 2) ? 1 : -1;
+                    return (cp == 2) ? -1 : 1;
                 }
             }
         });
@@ -78,20 +81,35 @@ public class GrahamConvexHull {
     public static int distance(Point a, Point b) {
         return (b.x - a.x)*(b.x - a.x) + (b.y - a.y)*(b.y - a.y); 
     }
+    public static Point top(LinkedList<Point> P){
+        return P.getLast();
+    }
+    public static Point nextToPeek(Stack<Point> S){
+        return S.get(S.size()-2);
+    }
+
+    public static Stack<Point> grahamScan(LinkedList<Point> Q){
+        Point p0 = firstPoint(Q);
+        LinkedList<Point> polarSortedPoints = polarSort(Q, p0);
+        Stack<Point> S = new Stack<Point>();
+        S.push(p0);
+        S.push(polarSortedPoints.get(0));//p1
+        S.push(polarSortedPoints.get(1));//p2
+        for(int i=2;i<polarSortedPoints.size();i++){
+            while(crossProdcut(GrahamConvexHull.nextToPeek(S),S.peek() , polarSortedPoints.get(i)) != 2){
+                S.pop();
+            }
+            S.push(polarSortedPoints.get(i));
+        }
+        return S;
+    }
 
     public static void main(String[] args) {
-        Point p0 = firstPoint(points);
-        System.out.println("I punti disordinati:");
        System.out.println(points);
-       System.out.println("======================================");
-       System.out.println("Il punto p0 è:");
-       System.out.println(p0);
-       System.out.println("======================================");
-       LinkedList<Point> sortedPoints = polarSort(points, p0);
-       System.out.println("p1.....pm:");
-       System.out.println(sortedPoints);
-       System.out.println("======================================");
-
+       System.out.println("===========================================================");
+       Stack<Point> CH = grahamScan(points);
+       System.out.println("GrahamScan eseguito");
+       System.out.println(CH);
     }
     
 }
