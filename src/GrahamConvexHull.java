@@ -1,11 +1,26 @@
-import java.awt.Point;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.awt.Point;
 import java.util.Stack;
 
 public class GrahamConvexHull {
+
+    public static Stack<Point> grahamScan(LinkedList<Point> Q) {
+        Point p0 = firstPoint(Q);
+        LinkedList<Point> polarSortedPoints = polarSort(Q, p0);
+        Stack<Point> S = new Stack<Point>();
+        S.push(p0);
+        S.push(polarSortedPoints.get(0)); // p1
+        S.push(polarSortedPoints.get(1)); // p2
+        for(int i = 2; i < polarSortedPoints.size(); i++) {
+            while(crossProdcut(GrahamConvexHull.nextToPeek(S), S.peek(), polarSortedPoints.get(i)) != 2) {
+                S.pop();
+            }
+            S.push(polarSortedPoints.get(i));
+        }
+        return S;
+    }
 
     private static int crossProdcut(Point a, Point b, Point c) { // 2 consecutive segments (a to b, b to c)
         int det = (c.x - a.x)*(b.y - a.y) - (b.x - a.x)*(c.y - a.y);
@@ -34,8 +49,10 @@ public class GrahamConvexHull {
 
 
     private static LinkedList<Point> polarSort(LinkedList<Point> unsortedPoints, Point p0) {
+
         unsortedPoints.remove(p0);
         LinkedList<Point> sortedPoints = new LinkedList<>(unsortedPoints);
+
         Collections.sort(sortedPoints, new Comparator<Point>() {
             public int compare(Point a, Point b) { // sorting rule
                 int cp = crossProdcut(p0, a, b);
@@ -47,15 +64,15 @@ public class GrahamConvexHull {
             }
         });
 
-         LinkedList<Point> removePoints = new LinkedList<>();
-        for(int i=0; i<=sortedPoints.size()-2; i++){
-            int d = crossProdcut(sortedPoints.get(i), sortedPoints.get(i+1) , p0);
-            if (d==0){
+        LinkedList<Point> removePoints = new LinkedList<>();
+        for(int i = 0; i <= sortedPoints.size() - 2; i++){
+            int d = crossProdcut(sortedPoints.get(i), sortedPoints.get(i+1), p0);
+            if (d == 0) {
                 removePoints.add(sortedPoints.get(i));
             }
         }
-        for(int j=0; j<removePoints.size();j++){
-            sortedPoints.remove(removePoints.get(j));
+        for(int i = 0; i < removePoints.size(); i++) {
+            sortedPoints.remove(removePoints.get(i));
         }
 
         return sortedPoints;
@@ -65,34 +82,15 @@ public class GrahamConvexHull {
     private static int distance(Point a, Point b) {
         return (b.x - a.x)*(b.x - a.x) + (b.y - a.y)*(b.y - a.y); 
     }
-    private static Point top(LinkedList<Point> P){
-        return P.getLast();
-    }
+    
     private static Point nextToPeek(Stack<Point> S){
-        return S.get(S.size()-2);
-    }
-
-    public static Stack<Point> grahamScan(LinkedList<Point> Q){
-        Point p0 = firstPoint(Q);
-        LinkedList<Point> polarSortedPoints = polarSort(Q, p0);
-        Stack<Point> S = new Stack<Point>();
-        S.push(p0);
-        S.push(polarSortedPoints.get(0));//p1
-        S.push(polarSortedPoints.get(1));//p2
-        for(int i=2;i<polarSortedPoints.size();i++){
-            while(crossProdcut(GrahamConvexHull.nextToPeek(S),S.peek() , polarSortedPoints.get(i)) != 2){
-                S.pop();
-            }
-            S.push(polarSortedPoints.get(i));
-        }
-        return S;
+        return S.get(S.size() - 2);
     }
 
   /*   public static void main(String[] args) {
        System.out.println(points);
-       System.out.println("===========================================================");
        Stack<Point> CH = grahamScan(points);
-       System.out.println("GrahamScan eseguito");
+       System.out.println("CONVEX HULL:");
        System.out.println(CH);
     }*/
     

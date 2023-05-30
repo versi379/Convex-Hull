@@ -1,6 +1,6 @@
-import java.awt.Point;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.awt.Point;
 import java.util.Random;
 import java.util.Stack;
 
@@ -21,11 +21,12 @@ public class RandomInputPoints {
             long startTime = System.currentTimeMillis();
             Stack<Point> CH = GrahamConvexHull.grahamScan(points);
             long endTime = System.currentTimeMillis();
-            long executionTime = endTime-startTime;
+            long executionTime = endTime - startTime;
+
             System.out.println("L'inviluppo complesso dei punti inseriti è: ");
             System.out.println(CH);
-            System.out.println("Il tempo impiegato da GrahamScan per "+dim[i]+ " punti è: " +executionTime+ " millisecondi");
-            System.out.println("=====================================================================================");
+            System.out.println("Il tempo impiegato da GrahamScan per " + dim[i] + " punti è: " + executionTime + " millisecondi");
+            System.out.println("==========================================================================================");
         }
     }
     
@@ -33,7 +34,7 @@ public class RandomInputPoints {
         Random rand = new Random();
         Point[] points = new Point[dim];
         
-        for (int i = 0; i < dim; i++) {
+        for(int i = 0; i < dim; i++) {
             int x = rand.nextInt(1001); // Coordinate x casuali tra 0 e 50
             int y = rand.nextInt(1001); // Coordinate y casuali tra 0 e 50
             points[i] = new Point(x, y);
