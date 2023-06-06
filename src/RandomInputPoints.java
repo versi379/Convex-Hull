@@ -6,14 +6,14 @@ import java.util.Stack;
 
 public class RandomInputPoints {
     public static void main(String[] args) {
-        int dim[] = {10, 100, 1000, 10000, 50000}; // Array di numeri di punti casuali da generare
+        int dim[] = {10, 50, 100, 250, 500, 750, 1000, 2500, 5000, 7500, 10000, 25000, 50000, 75000, 100000}; // Array di numeri di punti casuali da generare
         
        /*  System.out.println("Punti casuali generati:");
         for (int i = 0; i < randomPoints.length; i++) {
             System.out.println("(" + randomPoints[i].x + ", " + randomPoints[i].y + ")");
         }*/
 
-        for(int i=0;i<5;i++){
+        for(int i = 0; i < 15; i++) {
             Point[] randomPoints = randomPointsGenerator(dim[i]);
         
             LinkedList<Point> points = new LinkedList<Point>(Arrays.asList(randomPoints));
@@ -35,8 +35,8 @@ public class RandomInputPoints {
         Point[] points = new Point[dim];
         
         for(int i = 0; i < dim; i++) {
-            int x = rand.nextInt(1001); // Coordinate x casuali tra 0 e 50
-            int y = rand.nextInt(1001); // Coordinate y casuali tra 0 e 50
+            int x = rand.nextInt(1001); // Coordinate x casuali tra 0 e 1000
+            int y = rand.nextInt(1001); // Coordinate y casuali tra 0 e 1000
             points[i] = new Point(x, y);
         }
         
