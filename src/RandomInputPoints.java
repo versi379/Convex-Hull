@@ -8,11 +8,6 @@ public class RandomInputPoints {
     public static void main(String[] args) {
         int dim[] = {10, 50, 100, 250, 500, 750, 1000, 2500, 5000, 7500, 10000, 25000, 50000, 75000, 100000}; // Array di numeri di punti casuali da generare
         
-       /*  System.out.println("Punti casuali generati:");
-        for (int i = 0; i < randomPoints.length; i++) {
-            System.out.println("(" + randomPoints[i].x + ", " + randomPoints[i].y + ")");
-        }*/
-
         for(int i = 0; i < 15; i++) {
             Point[] randomPoints = randomPointsGenerator(dim[i]);
         

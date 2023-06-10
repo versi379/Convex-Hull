@@ -86,12 +86,4 @@ public class GrahamConvexHull {
     private static Point nextToPeek(Stack<Point> S){
         return S.get(S.size() - 2);
     }
-
-  /*   public static void main(String[] args) {
-       System.out.println(points);
-       Stack<Point> CH = grahamScan(points);
-       System.out.println("CONVEX HULL:");
-       System.out.println(CH);
-    }*/
-    
 }
