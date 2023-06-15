@@ -68,7 +68,7 @@
 	Prof.~Emilio \textsc{DI GIACOMO}
 
 	\vspace{2cm}
-	\textbf{\huge{Calcolo dell'inviluppo complesso di un insieme di punti}}\par
+	\textbf{\huge{Calcolo dell'inviluppo convesso di un insieme di punti}}\par
 	\vspace{0.2cm}
 	  \textsc{Implementazione Algoritmo di Graham}\par
 	
@@ -153,7 +153,7 @@ Se il prodotto vettoriale $p_1 \times p_2$ è:
     \caption{}
     \label{fig:crossproductturn}
  \end{subfigure}
- \caption{\textbf{\ref{fig:crossproduct}} Il prodotto vettoriale sei vettori $p_1$ e $p_2$ è l'area con segno del parallelogramma indicato. \textbf{\ref{fig:crossproductturn}} La zona di colore grigio chiaro contiene i vettori che seguono in senso orario il vettore $p$, quella di colore grigio scuro contiene i vettori che seguono in senso antiorario il vettore $p$.}
+ \caption{\textbf{\ref{fig:crossproduct}} Il prodotto vettoriale dei vettori $p_1$ e $p_2$ è l'area con segno del parallelogramma indicato. \textbf{\ref{fig:crossproductturn}} La zona di colore grigio chiaro contiene i vettori che seguono in senso orario il vettore $p$, quella di colore grigio scuro contiene i vettori che seguono in senso antiorario il vettore $p$.}
 \end{figure}
 
 Poter determinare, tramite il prodotto vettoriale definito, il senso di rotazione di un segmento nei confronti di un altro (applicato nello stesso punto), gioca un ruolo fondamentale all'interno della geometria computazionale.\\
@@ -177,8 +177,8 @@ Analizzato il caso in cui i due segmenti hanno la stessa origine, si vuole deter
 Il prodotto vettoriale definito consente di rispondere a quest'ultima domanda senza dover calcolare l'angolo, verificando se il vettore $\overrightarrow{p_0p_2}$ è ruotato in senso orario o antiorario rispetto al vettore $\overrightarrow{p_0p_1}$.\\
 Si calcola quindi il prodotto vettoriale $(p_2 - p_0) \times (p_1 - p_0)$ e se il segno è:
 \begin{itemize}
-    \item[-] positivo, indica una rotazione in senso orario, cioè una svolta a destra in $p_1$; \textbf{\ref{fig:clockwise}}
-    \item[-] negativo, indica una rotazione in senso antiorario, cioè una svolta a sinistra in $p_1$; \textbf{\ref{fig:anticlockwise}}
+    \item[-] positivo, indica una rotazione in senso orario, cioè una svolta a destra in $p_1$ (Figura \textbf{\ref{fig:clockwise}});
+    \item[-] negativo, indica una rotazione in senso antiorario, cioè una svolta a sinistra in $p_1$ (Figura \textbf{\ref{fig:anticlockwise}});
     \item[-] nullo, significa che i tre punti sono collineari. 
 \end{itemize}
 
@@ -196,20 +196,21 @@ Si calcola quindi il prodotto vettoriale $(p_2 - p_0) \times (p_1 - p_0)$ e se i
     \caption{Rotazione in senso antiorario.}
     \label{fig:anticlockwise}
  \end{subfigure}
+ \caption{Svolta di due segmenti consecutivi.}
 \end{figure}
 
 \section{Metodi di Calcolo}
 Esistono diversi algoritmi che risolvono il problema del calcolo dell'inviluppo convesso di un insieme di punti. Prima di parlare dell'algoritmo di Graham, oggetto di studio della tesina, è importante conoscere altri metodi di calcolo per avere un'idea generale sul tempo di esecuzione, quindi poter trarre conclusioni sull'efficacia.\\
 
 \subsection*{\small{METODO INCREMENTALE}}
-Questo metodo ordina i punti da sinistra a destra, producendo una sequenza $\langle p_1, ..., p_n\rangle$. All'i-esimo stadio, l'involucro convesso $CH(\{p_1, ..., p_{i-1}\})$ degli $i - 1$ punti più a sinistra viene aggiornato in base all'i-esimo punto da sinistra, formando così $CH(\{p_1, ..., p_i\})$. Il metodo può essere implementato in modo da richiedere un tempo pari a $O(n\hspace{0.05cm}lgn)$
+Questo metodo ordina i punti da sinistra a destra, producendo una sequenza $\langle p_1, ..., p_n\rangle$. All'i-esimo stadio, l'involucro convesso $CH(\{p_1, ..., p_{i-1}\})$ degli $i - 1$ punti più a sinistra viene aggiornato in base all'i-esimo punto da sinistra, formando così $CH(\{p_1, ..., p_i\})$. Il metodo può essere implementato in modo da richiedere un tempo pari a $O(n\hspace{0.05cm}lgn)$.
 
 \subsection*{\small{METODO DIVIDE ET IMPERA}}
 Questo metodo divide in un tempo $\Theta(n)$ l'insieme di $n$ punti in due sottoinsiemi, uno contenente gli  $\lceil n/2 \rceil$ punti più a sinistra e l'altro contenente gli $\lfloor n/2 \rfloor$ punti più a destra. L'involucro convesso dei sottoinsiemi è calcolato in modo ricorsivo e le soluzioni sono combinate in un tempo $O(n)$.
 Il tempo di esecuzione è quindi $T(n) = 2T(n/2) + O(n) \Rightarrow O(n\hspace{0.05cm}lgn)$.
 
 \subsection*{\small{METODO PRUNE AND SEARCH}}
-Questo metodo trova la porzione superiore (catena superiore) dell'involucro convesso eliminando ripetutamente una frazione dei punti restanti, ottenendo così la catena superiore dell'involucro convesso. Ripete poi lo stesso procedimento per la catena inferiore. Questo metodo è asintoticamente il più veloce, infatti se $CH$ contiene $h$ vertici viene eseguito in un tempo $O(n\hspace{0.05cm}lg\hspace{0.01cm}h)$.
+Questo metodo trova la porzione superiore (catena superiore) dell'involucro convesso eliminando ripetutamente una frazione dei punti restanti, ottenendo così la catena superiore dell'involucro convesso. Ripete poi lo stesso procedimento per la catena inferiore. È asintoticamente il più veloce, infatti se $CH$ contiene $h$ vertici viene eseguito in un tempo $O(n\hspace{0.05cm}lg\hspace{0.01cm}h)$.
 
 \subsection*{\small{ALGORITMO DI JARVIS}}
 L'algoritmo di Jarvis calcola l'involucro convesso di un insieme di punti $Q$ adottando una tecnica di "impacchettamento" o "confezionamento" dei regali ("gift wrapping"). A differenza dell'algoritmo di Graham, trattato nel seguito, questo algoritmo consente di calcolare l'involucro convesso di un insieme di punti non necessariamente planari, ma anche a dimensioni maggiori o uguali a tre. Il problema dell'involucro convesso formulato per dimensioni maggiori di due è analogo, ma:
@@ -218,10 +219,11 @@ L'algoritmo di Jarvis calcola l'involucro convesso di un insieme di punti $Q$ ad
     \item[-] in uno spazio n-dimensionale diventa il più piccolo politopo convesso tale che ogni punto dell'insieme di input si trova al suo interno o sulla frontiera.
 \end{itemize}
 Intuitivamente, l'idea di fondo dell'algoritmo è quella di simulare l'operazione di impacchettare con un foglio di carta l'insieme $Q$ dei punti dati. Si parte ancorando l'estremità del foglio di carta al punto più basso dell'insieme (punto di partenza scelto esattamente come in Graham). Questo punto è sicuramente un vertice dell'involucro convesso. Ora, si tira la carta verso destra (ad esempio) per tenderla e poi la si tira verso l'alto fin quando non si tocca un punto di $Q$. Mantenendo tesa la carta, si continua ad impacchettare l'insieme dei vertici fino a che non si ritorna al punto scelto in partenza, completando il desiderato involucro convesso.\\
-Questo algoritmo viene eseguito nel tempo $O(nh)$, dove $h$ è il numero di vertici di $CH(Q)$. Quando $h$ è $O(lg)$, l'algoritmo di Jarvis è asintoticamente più veloce dell'algoritmo di Graham, che richiede sempre $O(n\hspace{0.05cm}lgn)$ per essere eseguito (indipendentemente dal numero di vertici dell'involucro convesso che si ottiene).
+
+Questo algoritmo viene eseguito in tempo $O(nh)$, dove $h$ è il numero di vertici di $CH(Q)$. Quando $h$ è $O(lgn)$, l'algoritmo di Jarvis è asintoticamente più veloce dell'algoritmo di Graham, che richiede sempre $O(n\hspace{0.05cm}lgn)$ per essere eseguito (indipendentemente dal numero di vertici dell'involucro convesso che si ottiene).
 
 \chapter{Algoritmi e Strutture Dati Implementati}\label{ch:implementazione}
-Nel seguito si presentano due possibili soluzioni al problema dell'involucro convesso: l'algoritmo di Graham e l'algoritmo di Jarvis.
+Nel seguito si presenta una possibile soluzione al problema dell'involucro convesso: l'algoritmo di Graham.
 
 \section{Descrizione delle Strutture Dati}
 L'algoritmo di Graham risolve il problema dell'involucro convesso, mantenendo i punti candidati in una pila $P$. Ogni punto dell'insieme di input $Q$ viene inserito una sola volta nella pila: se non fa parte di $CH(Q)$ viene rimosso dalla pila, altrimenti è mantenuto.
@@ -354,7 +356,7 @@ Questi punti non fanno parte dell'involucro convesso di $Q$, quindi è equivalen
 Quindi, basta dimostrare che l'esecuzione dell'algoritmo di Graham sull'insieme $Q_m$ fornisca in output uno stack $S$ contenente, dal basso verso l'alto, esattamente i vertici dell'involucro convesso di $Q_m$ in ordine antiorario.
 
 \subsection*{\small{INVARIANTE DI CICLO}}
-All'inizio di ogni iterazione del ciclo for (), la pila $P$ contiene, dal basso verso l'alto, esattamente i vertici di $CH(Q_{i-1})$ in ordine antiorario.
+All'inizio di ogni iterazione del ciclo for (righe 7-10), la pila $P$ contiene, dal basso verso l'alto, esattamente i vertici di $CH(Q_{i-1})$ in ordine antiorario.
 
 \vspace{0.5cm}
 
