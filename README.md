@@ -1,7 +1,7 @@
 ## CONVEX HULL
 
 ### GrahamConvexHull.java
-Implementa l'algoritmo di Graham utilizzando le strutture "LinkedList" e "Stack" fornite dal Java Collection Framework.
+Implementa l'algoritmo di Graham utilizzando le strutture dati "LinkedList" e "Stack" fornite dal Java Collection Framework.
 
 ### ManualInputPoints.java
 Consente all'utente di inserire dei punti nel piano e stampa nel terminale i vertici dell'inviluppo convesso ordinati in senso orario partendo dal punto di ordinata minima.
