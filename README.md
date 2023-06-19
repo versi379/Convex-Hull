@@ -12,3 +12,6 @@ Consente di eseguire l'algoritmo su diverse dimensioni e configurazioni (casuali
 ### Test.java
 Consente di visualizzare graficamente un'istanza, e la relativa soluzione, del problema affrontato.
 Quando viene eseguita mostra in una GUI un insieme di punti generati casualmente nel piano e l'utente può visualizzare l'inviluppo convesso premendo il tasto ENTER.
+
+### GitHub
+https://github.com/versi379/ConvexHull
