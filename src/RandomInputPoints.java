@@ -18,7 +18,7 @@ public class RandomInputPoints {
             long endTime = System.currentTimeMillis();
             long executionTime = endTime - startTime;
 
-            System.out.println("L'inviluppo complesso dei punti inseriti è: ");
+            System.out.println("L'inviluppo convesso dei " + dim[i] + " punti generati è: ");
             System.out.println(CH);
             System.out.println("Il tempo impiegato da GrahamScan per " + dim[i] + " punti è: " + executionTime + " millisecondi");
             System.out.println("==========================================================================================");
