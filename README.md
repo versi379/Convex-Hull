@@ -1,17 +1,14 @@
-## CONVEX HULL
+## Implementation and Application of Graham's Convex Hull algorithm
 
 ### GrahamConvexHull.java
-Implementa l'algoritmo di Graham utilizzando le strutture dati "LinkedList" e "Stack" fornite dal Java Collection Framework.
+Implements Graham's Convex Hull algorithm using linkedlist and stack data structures provided by Java Collection Framework.
 
 ### ManualInputPoints.java
-Consente all'utente di inserire dei punti nel piano e stampa nel terminale i vertici dell'inviluppo convesso ordinati in senso orario partendo dal punto di ordinata minima.
+Allows users to insert points in the plane and prints (in terminal) vertices of convex hull ordered clockwise starting from minimum ordinate point.
 
 ### RandomInputPoints.java
-Consente di eseguire l'algoritmo su diverse dimensioni e configurazioni (casuali) di input. I dati utilizzati per l'analisi sperimentale sono stati raccolti eseguendo questa classe.
+Runs algorithm on different random input sizes and configurations.
 
 ### Test.java
-Consente di visualizzare graficamente un'istanza, e la relativa soluzione, del problema affrontato.
-Quando viene eseguita mostra in una GUI un insieme di punti generati casualmente nel piano e l'utente può visualizzare l'inviluppo convesso premendo il tasto ENTER.
-
-### GitHub
-https://github.com/versi379/ConvexHull
+Allows to graphically display an instance and a solution of the convex hull problem.
+When executed it shows (in a GUI) a set of randomly generated points in the plane and user can view convex hull pressing ENTER key.
