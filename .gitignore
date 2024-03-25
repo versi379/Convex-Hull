@@ -1,6 +1,5 @@
 .DS_Store
-.vscode
-.tex
-.bib
+*.tex
+*.bib
 tesina/Figures/
 bin/
